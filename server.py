@@ -20,7 +20,7 @@ app = Flask(__name__, static_folder='public', template_folder='views')
 app.secret = os.environ.get('SECRET')
 
 # Dream database. Store dreams in memory for now. 
-DREAMS = ['Python. Python, everywhere.']
+DREAMS = ['Python. Python, everywhere and not a drop to think']
 
 
 @app.after_request
@@ -32,7 +32,8 @@ def apply_kr_hello(response):
         response.headers["X-Was-Here"] = os.environ.get('MADE_BY')
     
     # Powered by Flask. 
-    response.headers["X-Powered-By"] = os.environ.get('POWERED_BY')
+    if 'POWERED_BY_' in os.environ:
+      response.headers["X-Powered-By"] = os.environ.get('POWERED_BY')
     return response
 
 
